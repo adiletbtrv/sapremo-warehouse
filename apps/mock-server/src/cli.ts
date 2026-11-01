@@ -1,4 +1,4 @@
-import { createMockServer } from './index.js';
+import { createMockServer } from './gateway.js';
 import { store } from './data/seed.js';
 
 const PORT = Number(process.env.PORT ?? 3001);

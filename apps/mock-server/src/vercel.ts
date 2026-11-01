@@ -1,3 +1,5 @@
-import handler from './index.js';
+import { createMockServer } from './gateway.js';
 
-export default handler;
+const { app } = createMockServer();
+
+export default app;

@@ -32,3 +32,4 @@ await build({
 mkdirSync(dirname(rootCopy), { recursive: true });
 copyFileSync(outfile, rootCopy);
 console.log(`Copied serverless bundle -> ${rootCopy}`);
+
