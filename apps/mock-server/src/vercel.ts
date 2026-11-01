@@ -1,4 +1,4 @@
-import { createMockServer } from '../src/index.js';
+import { createMockServer } from './index.js';
 
 const { app } = createMockServer();
 

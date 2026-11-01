@@ -48,8 +48,31 @@ export function createMockServer() {
   app.use(networkDegradationMiddleware);
 
   // ============================================================================
-  // 1. HEALTH & CHAOS NETWORK DEGRADATION SIMULATOR ENDPOINTS
+  // 1. ROOT & HEALTH ENDPOINTS
   // ============================================================================
+  app.get(['/', '/api'], (_req: Request, res: Response) => {
+    res.json({
+      status: 'UP',
+      service: 'sapremo-mock-gateway',
+      version: '1.0.0',
+      description: 'Sapremo Cold-Chain WMS Mock Gateway',
+      totalSkus: store.skus.size,
+      totalBins: store.bins.size,
+      endpoints: {
+        health: '/api/health',
+        products: '/api/factory/products/',
+        inventory: '/api/warehouse/inventory',
+        orders: '/api/drivers/orders',
+        bins: '/api/warehouse/bins',
+        batches: '/api/warehouse/batches',
+        movements: '/api/warehouse/movements',
+        dashboard: '/api/warehouse/dashboard',
+        chaos: '/api/chaos/config',
+      },
+      timestamp: new Date().toISOString(),
+    });
+  });
+
   app.get(['/api/health', '/api/warehouse/health'], (_req: Request, res: Response) => {
     res.json({
       status: 'UP',
