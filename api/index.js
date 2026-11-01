@@ -19492,14 +19492,14 @@ var require_init = __commonJS({
   "../../node_modules/express/lib/middleware/init.js"(exports) {
     "use strict";
     var setPrototypeOf = require_setprototypeof();
-    exports.init = function(app2) {
+    exports.init = function(app) {
       return function expressInit(req, res, next) {
-        if (app2.enabled("x-powered-by")) res.setHeader("X-Powered-By", "Express");
+        if (app.enabled("x-powered-by")) res.setHeader("X-Powered-By", "Express");
         req.res = res;
         res.req = req;
         req.next = next;
-        setPrototypeOf(req, app2.request);
-        setPrototypeOf(res, app2.response);
+        setPrototypeOf(req, app.request);
+        setPrototypeOf(res, app.response);
         res.locals = res.locals || /* @__PURE__ */ Object.create(null);
         next();
       };
@@ -22182,15 +22182,15 @@ var require_application = __commonJS({
     var setPrototypeOf = require_setprototypeof();
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     var slice = Array.prototype.slice;
-    var app2 = exports = module.exports = {};
+    var app = exports = module.exports = {};
     var trustProxyDefaultSymbol = "@@symbol:trust_proxy_default";
-    app2.init = function init() {
+    app.init = function init() {
       this.cache = {};
       this.engines = {};
       this.settings = {};
       this.defaultConfiguration();
     };
-    app2.defaultConfiguration = function defaultConfiguration() {
+    app.defaultConfiguration = function defaultConfiguration() {
       var env = process.env.NODE_ENV || "development";
       this.enable("x-powered-by");
       this.set("etag", "weak");
@@ -22228,7 +22228,7 @@ var require_application = __commonJS({
         }
       });
     };
-    app2.lazyrouter = function lazyrouter() {
+    app.lazyrouter = function lazyrouter() {
       if (!this._router) {
         this._router = new Router({
           caseSensitive: this.enabled("case sensitive routing"),
@@ -22238,7 +22238,7 @@ var require_application = __commonJS({
         this._router.use(middleware.init(this));
       }
     };
-    app2.handle = function handle(req, res, callback) {
+    app.handle = function handle(req, res, callback) {
       var router = this._router;
       var done = callback || finalhandler(req, res, {
         env: this.get("env"),
@@ -22251,7 +22251,7 @@ var require_application = __commonJS({
       }
       router.handle(req, res, done);
     };
-    app2.use = function use(fn) {
+    app.use = function use(fn) {
       var offset = 0;
       var path = "/";
       if (typeof fn !== "function") {
@@ -22289,11 +22289,11 @@ var require_application = __commonJS({
       }, this);
       return this;
     };
-    app2.route = function route(path) {
+    app.route = function route(path) {
       this.lazyrouter();
       return this._router.route(path);
     };
-    app2.engine = function engine(ext, fn) {
+    app.engine = function engine(ext, fn) {
       if (typeof fn !== "function") {
         throw new Error("callback function required");
       }
@@ -22301,7 +22301,7 @@ var require_application = __commonJS({
       this.engines[extension2] = fn;
       return this;
     };
-    app2.param = function param(name, fn) {
+    app.param = function param(name, fn) {
       this.lazyrouter();
       if (Array.isArray(name)) {
         for (var i = 0; i < name.length; i++) {
@@ -22312,7 +22312,7 @@ var require_application = __commonJS({
       this._router.param(name, fn);
       return this;
     };
-    app2.set = function set(setting, val) {
+    app.set = function set(setting, val) {
       if (arguments.length === 1) {
         var settings = this.settings;
         while (settings && settings !== Object.prototype) {
@@ -22342,23 +22342,23 @@ var require_application = __commonJS({
       }
       return this;
     };
-    app2.path = function path() {
+    app.path = function path() {
       return this.parent ? this.parent.path() + this.mountpath : "";
     };
-    app2.enabled = function enabled(setting) {
+    app.enabled = function enabled(setting) {
       return Boolean(this.set(setting));
     };
-    app2.disabled = function disabled(setting) {
+    app.disabled = function disabled(setting) {
       return !this.set(setting);
     };
-    app2.enable = function enable(setting) {
+    app.enable = function enable(setting) {
       return this.set(setting, true);
     };
-    app2.disable = function disable(setting) {
+    app.disable = function disable(setting) {
       return this.set(setting, false);
     };
     methods.forEach(function(method) {
-      app2[method] = function(path) {
+      app[method] = function(path) {
         if (method === "get" && arguments.length === 1) {
           return this.set(path);
         }
@@ -22368,7 +22368,7 @@ var require_application = __commonJS({
         return this;
       };
     });
-    app2.all = function all(path) {
+    app.all = function all(path) {
       this.lazyrouter();
       var route = this._router.route(path);
       var args = slice.call(arguments, 1);
@@ -22377,8 +22377,8 @@ var require_application = __commonJS({
       }
       return this;
     };
-    app2.del = deprecate.function(app2.delete, "app.del: Use app.delete instead");
-    app2.render = function render(name, options, callback) {
+    app.del = deprecate.function(app.delete, "app.del: Use app.delete instead");
+    app.render = function render(name, options, callback) {
       var cache = this.cache;
       var done = callback;
       var engines = this.engines;
@@ -22419,7 +22419,7 @@ var require_application = __commonJS({
       }
       tryRender(view, renderOptions, done);
     };
-    app2.listen = function listen() {
+    app.listen = function listen() {
       var server = http2.createServer(this);
       return server.listen.apply(server, arguments);
     };
@@ -23486,7 +23486,7 @@ var require_response = __commonJS({
       var encoding;
       var req = this.req;
       var type;
-      var app2 = this.app;
+      var app = this.app;
       if (arguments.length === 2) {
         if (typeof arguments[0] !== "number" && typeof arguments[1] === "number") {
           deprecate("res.send(body, status): Use res.status(status).send(body) instead");
@@ -23533,7 +23533,7 @@ var require_response = __commonJS({
           this.set("Content-Type", setCharset(type, "utf-8"));
         }
       }
-      var etagFn = app2.get("etag fn");
+      var etagFn = app.get("etag fn");
       var generateETag = !this.get("ETag") && typeof etagFn === "function";
       var len;
       if (chunk !== void 0) {
@@ -23585,10 +23585,10 @@ var require_response = __commonJS({
           val = arguments[1];
         }
       }
-      var app2 = this.app;
-      var escape2 = app2.get("json escape");
-      var replacer = app2.get("json replacer");
-      var spaces = app2.get("json spaces");
+      var app = this.app;
+      var escape2 = app.get("json escape");
+      var replacer = app.get("json replacer");
+      var spaces = app.get("json spaces");
       var body = stringify(val, replacer, spaces, escape2);
       if (!this.get("Content-Type")) {
         this.set("Content-Type", "application/json");
@@ -23607,12 +23607,12 @@ var require_response = __commonJS({
           val = arguments[1];
         }
       }
-      var app2 = this.app;
-      var escape2 = app2.get("json escape");
-      var replacer = app2.get("json replacer");
-      var spaces = app2.get("json spaces");
+      var app = this.app;
+      var escape2 = app.get("json escape");
+      var replacer = app.get("json replacer");
+      var spaces = app.get("json spaces");
       var body = stringify(val, replacer, spaces, escape2);
-      var callback = this.req.query[app2.get("jsonp callback name")];
+      var callback = this.req.query[app.get("jsonp callback name")];
       if (!this.get("Content-Type")) {
         this.set("X-Content-Type-Options", "nosniff");
         this.set("Content-Type", "application/json");
@@ -23877,7 +23877,7 @@ var require_response = __commonJS({
       return this;
     };
     res.render = function render(view, options, callback) {
-      var app2 = this.req.app;
+      var app = this.req.app;
       var done = callback;
       var opts = options || {};
       var req = this.req;
@@ -23891,7 +23891,7 @@ var require_response = __commonJS({
         if (err) return req.next(err);
         self.send(str);
       };
-      app2.render(view, opts, done);
+      app.render(view, opts, done);
     };
     function sendfile(res2, file, options, callback) {
       var done = false;
@@ -24099,19 +24099,19 @@ var require_express = __commonJS({
     var res = require_response();
     exports = module.exports = createApplication;
     function createApplication() {
-      var app2 = function(req2, res2, next) {
-        app2.handle(req2, res2, next);
+      var app = function(req2, res2, next) {
+        app.handle(req2, res2, next);
       };
-      mixin(app2, EventEmitter.prototype, false);
-      mixin(app2, proto, false);
-      app2.request = Object.create(req, {
-        app: { configurable: true, enumerable: true, writable: true, value: app2 }
+      mixin(app, EventEmitter.prototype, false);
+      mixin(app, proto, false);
+      app.request = Object.create(req, {
+        app: { configurable: true, enumerable: true, writable: true, value: app }
       });
-      app2.response = Object.create(res, {
-        app: { configurable: true, enumerable: true, writable: true, value: app2 }
+      app.response = Object.create(res, {
+        app: { configurable: true, enumerable: true, writable: true, value: app }
       });
-      app2.init();
-      return app2;
+      app.init();
+      return app;
     }
     exports.application = proto;
     exports.request = req;
@@ -28680,7 +28680,7 @@ var StompBroker = class {
   wss;
   sessions = /* @__PURE__ */ new Map();
   messageCounter = 1;
-  constructor(server, app2) {
+  constructor(server, app) {
     const sockJsInfoHandler = (_req, res) => {
       res.setHeader("Access-Control-Allow-Origin", _req.headers.origin || "*");
       res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -28692,8 +28692,8 @@ var StompBroker = class {
         entropy: Math.floor(Math.random() * 2e9)
       });
     };
-    app2.get("/api/warehouse/ws/info", sockJsInfoHandler);
-    app2.get("/ws/info", sockJsInfoHandler);
+    app.get("/api/warehouse/ws/info", sockJsInfoHandler);
+    app.get("/ws/info", sockJsInfoHandler);
     this.wss = new import_websocket_server.default({ noServer: true });
     server.on("upgrade", (request, socket, head) => {
       const url = request.url ?? "";
@@ -28877,19 +28877,19 @@ function createJwtToken(username, role = "WAREHOUSE_MANAGER", warehouseId = stor
   return `${header}.${payload}.${signature}`;
 }
 function createMockServer() {
-  const app2 = (0, import_express.default)();
-  const server = http.createServer(app2);
-  const stompBroker = new StompBroker(server, app2);
-  app2.use(
+  const app = (0, import_express.default)();
+  const server = http.createServer(app);
+  const stompBroker = new StompBroker(server, app);
+  app.use(
     (0, import_cors.default)({
       origin: true,
       credentials: true,
       exposedHeaders: ["X-Simulated-Latency-Ms", "X-Chaos-Drop-Rate"]
     })
   );
-  app2.use(import_express.default.json({ limit: "10mb" }));
-  app2.use(networkDegradationMiddleware);
-  app2.get(["/", "/api"], (_req, res) => {
+  app.use(import_express.default.json({ limit: "10mb" }));
+  app.use(networkDegradationMiddleware);
+  app.get(["/", "/api"], (_req, res) => {
     res.json({
       status: "UP",
       service: "sapremo-mock-gateway",
@@ -28911,7 +28911,7 @@ function createMockServer() {
       timestamp: (/* @__PURE__ */ new Date()).toISOString()
     });
   });
-  app2.get(["/api/health", "/api/warehouse/health"], (_req, res) => {
+  app.get(["/api/health", "/api/warehouse/health"], (_req, res) => {
     res.json({
       status: "UP",
       service: "sapremo-mock-gateway",
@@ -28924,10 +28924,10 @@ function createMockServer() {
       timestamp: (/* @__PURE__ */ new Date()).toISOString()
     });
   });
-  app2.get(["/api/chaos/config", "/api/warehouse/chaos/config"], (_req, res) => {
+  app.get(["/api/chaos/config", "/api/warehouse/chaos/config"], (_req, res) => {
     res.json(getChaosConfig());
   });
-  app2.post(["/api/chaos/config", "/api/warehouse/chaos/config"], (req, res) => {
+  app.post(["/api/chaos/config", "/api/warehouse/chaos/config"], (req, res) => {
     const updated = updateChaosConfig(req.body ?? {});
     res.json(updated);
   });
@@ -28948,11 +28948,11 @@ function createMockServer() {
       }
     });
   };
-  app2.post(
+  app.post(
     ["/api/factory/auth/login", "/api/warehouse/auth/login", "/api/auth/login"],
     loginHandler
   );
-  app2.post(
+  app.post(
     ["/api/factory/auth/refresh", "/api/warehouse/auth/refresh", "/api/auth/refresh"],
     (req, res) => {
       const access = createJwtToken("warehouse_admin");
@@ -28962,7 +28962,7 @@ function createMockServer() {
       });
     }
   );
-  app2.post(
+  app.post(
     ["/api/factory/auth/register", "/api/warehouse/auth/register"],
     (req, res) => {
       const { username = "new_operator", full_name = "\u041E\u043F\u0435\u0440\u0430\u0442\u043E\u0440 \u0421\u043A\u043B\u0430\u0434\u0430" } = req.body ?? {};
@@ -29010,7 +29010,7 @@ function createMockServer() {
     }
     res.json(list);
   };
-  app2.get(
+  app.get(
     [
       "/api/factory/products/",
       "/api/factory/products",
@@ -29019,7 +29019,7 @@ function createMockServer() {
     ],
     listProductsHandler
   );
-  app2.post(["/api/factory/products/", "/api/factory/products"], (req, res) => {
+  app.post(["/api/factory/products/", "/api/factory/products"], (req, res) => {
     const body = req.body ?? {};
     const nextIndex = store.skus.size + 1;
     const id = String(body.id ?? `sku-${String(nextIndex).padStart(4, "0")}`);
@@ -29108,9 +29108,9 @@ function createMockServer() {
     store.skusByBarcode.set(updated.barcode, updated);
     res.json(updated);
   };
-  app2.patch(["/api/factory/products/:id/", "/api/factory/products/:id"], updateProductHandler);
-  app2.put(["/api/factory/products/:id/", "/api/factory/products/:id"], updateProductHandler);
-  app2.delete(
+  app.patch(["/api/factory/products/:id/", "/api/factory/products/:id"], updateProductHandler);
+  app.put(["/api/factory/products/:id/", "/api/factory/products/:id"], updateProductHandler);
+  app.delete(
     ["/api/factory/products/:id/", "/api/factory/products/:id"],
     (req, res) => {
       const id = req.params.id;
@@ -29122,7 +29122,7 @@ function createMockServer() {
       res.status(204).send();
     }
   );
-  app2.get(["/api/warehouse/inventory", "/api/inventory"], (_req, res) => {
+  app.get(["/api/warehouse/inventory", "/api/inventory"], (_req, res) => {
     const stockItems = Array.from(store.skus.values()).map((sku) => ({
       productId: sku.id,
       barcode: sku.barcode,
@@ -29143,7 +29143,7 @@ function createMockServer() {
     }));
     res.json(stockItems);
   });
-  app2.post(
+  app.post(
     ["/api/warehouse/inventory/reception", "/api/inventory/reception"],
     (req, res) => {
       const idempotencyKey = String(req.headers["idempotency-key"] ?? "");
@@ -29205,7 +29205,7 @@ function createMockServer() {
       res.status(200).json(updatedItems);
     }
   );
-  app2.post(
+  app.post(
     ["/api/warehouse/inventory/adjust", "/api/inventory/adjust"],
     (req, res) => {
       const idempotencyKey = String(req.headers["idempotency-key"] ?? "");
@@ -29276,7 +29276,7 @@ function createMockServer() {
       res.json(responsePayload);
     }
   );
-  app2.post(
+  app.post(
     ["/api/warehouse/inventory/move-pallet", "/api/inventory/move-pallet"],
     (req, res) => {
       const body = req.body ?? {};
@@ -29340,20 +29340,20 @@ function createMockServer() {
       });
     }
   );
-  app2.get(["/api/warehouse/bins", "/api/bins"], (_req, res) => {
+  app.get(["/api/warehouse/bins", "/api/bins"], (_req, res) => {
     res.json(Array.from(store.bins.values()));
   });
-  app2.get(["/api/warehouse/batches", "/api/batches"], (_req, res) => {
+  app.get(["/api/warehouse/batches", "/api/batches"], (_req, res) => {
     const sortedByFefo = Array.from(store.batches.values()).sort(
       (a, b) => a.expirationDate.localeCompare(b.expirationDate)
     );
     res.json(sortedByFefo);
   });
-  app2.get(["/api/warehouse/movements", "/api/movements"], (req, res) => {
+  app.get(["/api/warehouse/movements", "/api/movements"], (req, res) => {
     const limit = Math.min(500, Number(req.query.limit ?? 100));
     res.json(store.movements.slice(0, limit));
   });
-  app2.get(["/api/drivers", "/api/drivers/"], (_req, res) => {
+  app.get(["/api/drivers", "/api/drivers/"], (_req, res) => {
     const driversList = Array.from(store.drivers.values());
     res.json({
       content: driversList,
@@ -29361,7 +29361,7 @@ function createMockServer() {
       totalPages: 1
     });
   });
-  app2.post(["/api/drivers", "/api/drivers/"], (req, res) => {
+  app.post(["/api/drivers", "/api/drivers/"], (req, res) => {
     const body = req.body ?? {};
     const id = String(body.id ?? `drv-${String(store.drivers.size + 1).padStart(3, "0")}`);
     const carNumber = String(body.carNumber ?? body.vehicleNumber ?? "01 KG 999 AAA");
@@ -29378,11 +29378,11 @@ function createMockServer() {
     store.drivers.set(id, driver);
     res.status(201).json(driver);
   });
-  app2.delete(["/api/drivers/:id", "/api/drivers/:id/"], (req, res) => {
+  app.delete(["/api/drivers/:id", "/api/drivers/:id/"], (req, res) => {
     store.drivers.delete(req.params.id);
     res.status(204).send();
   });
-  app2.get(["/api/drivers/debts", "/api/drivers/debts/"], (_req, res) => {
+  app.get(["/api/drivers/debts", "/api/drivers/debts/"], (_req, res) => {
     const debts = Array.from(store.drivers.values()).map((d) => ({
       driverId: d.id,
       id: d.id,
@@ -29398,7 +29398,7 @@ function createMockServer() {
       totalPages: 1
     });
   });
-  app2.get(["/api/drivers/orders", "/api/drivers/orders/"], (_req, res) => {
+  app.get(["/api/drivers/orders", "/api/drivers/orders/"], (_req, res) => {
     const ordersList = Array.from(store.orders.values());
     res.json({
       content: ordersList,
@@ -29406,7 +29406,7 @@ function createMockServer() {
       totalPages: 1
     });
   });
-  app2.post(["/api/drivers/orders", "/api/drivers/orders/"], (req, res) => {
+  app.post(["/api/drivers/orders", "/api/drivers/orders/"], (req, res) => {
     const body = req.body ?? {};
     const driver = (body.driverId ? store.drivers.get(body.driverId) : void 0) ?? Array.from(store.drivers.values())[0];
     const ordIdx = store.orders.size + 1;
@@ -29455,7 +29455,7 @@ function createMockServer() {
     stompBroker.publish("/topic/dashboard/update", { timestamp: nowIso });
     res.status(201).json(newOrder);
   });
-  app2.post("/api/drivers/orders/:id/confirm", (req, res) => {
+  app.post("/api/drivers/orders/:id/confirm", (req, res) => {
     const order = store.orders.get(req.params.id);
     if (!order) {
       res.status(404).json({ message: "Order not found" });
@@ -29470,7 +29470,7 @@ function createMockServer() {
     stompBroker.publish("/topic/dashboard/update", { timestamp: nowIso });
     res.json(order);
   });
-  app2.post("/api/drivers/orders/:id/reject", (req, res) => {
+  app.post("/api/drivers/orders/:id/reject", (req, res) => {
     const order = store.orders.get(req.params.id);
     if (!order) {
       res.status(404).json({ message: "Order not found" });
@@ -29485,7 +29485,7 @@ function createMockServer() {
     stompBroker.publish("/topic/dashboard/update", { timestamp: nowIso });
     res.json(order);
   });
-  app2.post("/api/drivers/orders/:id/modify", (req, res) => {
+  app.post("/api/drivers/orders/:id/modify", (req, res) => {
     const order = store.orders.get(req.params.id);
     if (!order) {
       res.status(404).json({ message: "Order not found" });
@@ -29524,7 +29524,7 @@ function createMockServer() {
     stompBroker.publish("/topic/dashboard/update", { timestamp: nowIso });
     res.json(order);
   });
-  app2.post("/api/drivers/orders/:id/dispatch", (req, res) => {
+  app.post("/api/drivers/orders/:id/dispatch", (req, res) => {
     const order = store.orders.get(req.params.id);
     if (!order) {
       res.status(404).json({ message: "Order not found" });
@@ -29586,7 +29586,7 @@ function createMockServer() {
     stompBroker.publish("/topic/dashboard/update", { timestamp: nowIso });
     res.json(order);
   });
-  app2.get(["/api/drivers/payments", "/api/drivers/payments/"], (_req, res) => {
+  app.get(["/api/drivers/payments", "/api/drivers/payments/"], (_req, res) => {
     const driverPayments = Array.from(store.transactions.values()).filter((t) => t.type === "driver_payment").map((t) => ({
       id: t.id,
       driverId: t.driverId ?? "drv-001",
@@ -29602,10 +29602,10 @@ function createMockServer() {
       totalPages: 1
     });
   });
-  app2.get("/api/warehouse/cashbox/transactions", (_req, res) => {
+  app.get("/api/warehouse/cashbox/transactions", (_req, res) => {
     res.json(Array.from(store.transactions.values()));
   });
-  app2.post("/api/warehouse/cashbox/driver-payment", (req, res) => {
+  app.post("/api/warehouse/cashbox/driver-payment", (req, res) => {
     const body = req.body ?? {};
     const driverId = String(body.driverId ?? "drv-001");
     const amount = Math.max(0, Number(body.amount ?? 0));
@@ -29633,7 +29633,7 @@ function createMockServer() {
     stompBroker.publish("/topic/dashboard/update", { timestamp: nowIso });
     res.status(201).json(tx);
   });
-  app2.post("/api/warehouse/cashbox/factory-payment", (req, res) => {
+  app.post("/api/warehouse/cashbox/factory-payment", (req, res) => {
     const body = req.body ?? {};
     const amount = Math.max(0, Number(body.amount ?? 0));
     const nowIso = (/* @__PURE__ */ new Date()).toISOString();
@@ -29653,7 +29653,7 @@ function createMockServer() {
     stompBroker.publish("/topic/dashboard/update", { timestamp: nowIso });
     res.status(201).json(tx);
   });
-  app2.get(["/api/drivers/returns", "/api/drivers/returns/"], (_req, res) => {
+  app.get(["/api/drivers/returns", "/api/drivers/returns/"], (_req, res) => {
     const list = Array.from(store.returns.values());
     res.json({
       content: list,
@@ -29709,7 +29709,7 @@ function createMockServer() {
     stompBroker.publish("/topic/dashboard/update", { timestamp: nowIso });
     res.status(201).json(record);
   };
-  app2.post(
+  app.post(
     [
       "/api/drivers/returns",
       "/api/drivers/returns/",
@@ -29720,13 +29720,13 @@ function createMockServer() {
     ],
     createReturnHandler
   );
-  app2.get(
+  app.get(
     ["/api/factory/warehouse-orders/", "/api/factory/warehouse-orders"],
     (_req, res) => {
       res.json(Array.from(store.factoryOrders.values()));
     }
   );
-  app2.post(
+  app.post(
     ["/api/factory/warehouse-orders/", "/api/factory/warehouse-orders"],
     (req, res) => {
       const body = req.body ?? {};
@@ -29762,7 +29762,7 @@ function createMockServer() {
       res.status(201).json(record);
     }
   );
-  app2.post(
+  app.post(
     [
       "/api/factory/warehouse-orders/:id/confirm-delivery/",
       "/api/factory/warehouse-orders/:id/confirm-delivery"
@@ -29775,7 +29775,7 @@ function createMockServer() {
       res.json(fo ?? { id: req.params.id, status: "delivered" });
     }
   );
-  app2.patch(
+  app.patch(
     ["/api/factory/warehouse-orders/:id/", "/api/factory/warehouse-orders/:id"],
     (req, res) => {
       const fo = store.factoryOrders.get(req.params.id);
@@ -29785,7 +29785,7 @@ function createMockServer() {
       res.json(fo ?? { id: req.params.id, status: req.body?.status ?? "delivered" });
     }
   );
-  app2.get(
+  app.get(
     [
       "/api/factory/reception/",
       "/api/factory/reception",
@@ -29798,7 +29798,7 @@ function createMockServer() {
       res.json(Array.from(store.receptions.values()));
     }
   );
-  app2.post(
+  app.post(
     ["/api/factory/reception/offline", "/api/factory/reception/offline/"],
     (req, res) => {
       const body = req.body ?? {};
@@ -29835,7 +29835,7 @@ function createMockServer() {
       res.status(201).json(record);
     }
   );
-  app2.get(
+  app.get(
     ["/api/factory/finance/debt-summary/", "/api/factory/finance/debt-summary"],
     (_req, res) => {
       res.json({
@@ -29845,7 +29845,7 @@ function createMockServer() {
       });
     }
   );
-  app2.get(
+  app.get(
     ["/api/factory/warehouses/", "/api/factory/warehouses"],
     (_req, res) => {
       res.json([
@@ -29864,7 +29864,7 @@ function createMockServer() {
       ]);
     }
   );
-  app2.get("/api/warehouse/dashboard", (_req, res) => {
+  app.get("/api/warehouse/dashboard", (_req, res) => {
     const totalDriversDebt = Array.from(store.drivers.values()).reduce(
       (sum, d) => sum + d.currentDebt,
       0
@@ -29884,16 +29884,18 @@ function createMockServer() {
       totalSkus: store.skus.size
     });
   });
-  return { app: app2, server, stompBroker };
+  return { app, server, stompBroker };
+}
+var lazyApp;
+function handler(req, res) {
+  lazyApp ??= createMockServer().app;
+  return lazyApp(req, res);
 }
 
 // src/vercel.ts
-var { app } = createMockServer();
-function handler(req, res) {
-  return app(req, res);
-}
+var vercel_default = handler;
 export {
-  handler as default
+  vercel_default as default
 };
 /*! Bundled license information:
 

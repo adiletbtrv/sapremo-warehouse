@@ -1,7 +1,3 @@
-import { createMockServer } from './index.js';
+import handler from './index.js';
 
-const { app } = createMockServer();
-
-export default function handler(req: any, res: any) {
-  return app(req, res);
-}
+export default handler;

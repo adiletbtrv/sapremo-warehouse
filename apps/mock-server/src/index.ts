@@ -1336,4 +1336,18 @@ export function createMockServer() {
   return { app, server, stompBroker };
 }
 
+/**
+ * Lazy serverless request handler.
+ *
+ * Vercel's zero-config Express detection may treat `src/index.ts` as the entrypoint
+ * and invoke its default export as `(req, res)`. The app is instantiated on the first
+ * request only, so importing this module (tests, CLI) has no side effects.
+ */
+let lazyApp: ReturnType<typeof createMockServer>['app'] | undefined;
+
+export default function handler(req: Request, res: Response) {
+  lazyApp ??= createMockServer().app;
+  return lazyApp(req, res);
+}
+
 
