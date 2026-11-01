@@ -1,8 +1,8 @@
 services:
   mock-server:
     build:
-      context: .
-      dockerfile: apps/mock-server/Dockerfile
+      context: apps/mock-server
+      dockerfile: Dockerfile
     container_name: sapremo-mock-gateway
     ports:
       - "3001:3001"
