@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "start": "tsx src/index.ts",
-    "build": "tsc && esbuild src/vercel.ts --bundle --platform=node --format=esm --outfile=api/index.js --external:express --external:cors --external:ws",
+    "dev": "tsx watch src/cli.ts",
+    "start": "tsx src/cli.ts",
+    "build": "tsc && esbuild src/vercel.ts --bundle --platform=node --format=esm --outfile=api/index.js",
     "type-check": "tsc --noEmit",
     "test": "vitest run"
   },

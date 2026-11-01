@@ -1336,18 +1336,4 @@ export function createMockServer() {
   return { app, server, stompBroker };
 }
 
-// Start server if invoked directly
-const isDirectRun =
-  process.argv[1] &&
-  (process.argv[1].endsWith('index.ts') || process.argv[1].endsWith('index.js'));
-
-if (isDirectRun) {
-  const PORT = Number(process.env.PORT ?? 3001);
-  const { server } = createMockServer();
-  server.listen(PORT, () => {
-    console.log(
-      `[Sapremo Mock Gateway] Running on http://localhost:${PORT} (SKUs: ${store.skus.size}, Bins: ${store.bins.size}, STOMP WS: ws://localhost:${PORT}/api/warehouse/ws)`
-    );
-  });
-}
 
