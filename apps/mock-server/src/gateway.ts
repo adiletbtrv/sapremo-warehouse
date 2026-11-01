@@ -50,11 +50,11 @@ export function createMockServer() {
   // ============================================================================
   // 1. ROOT & HEALTH ENDPOINTS
   // ============================================================================
-  app.get(['/', '/api'], (_req: Request, res: Response) => {
+  app.get(['/', '/api', '/index', '/api/index'], (_req: Request, res: Response) => {
     res.json({
       status: 'UP',
       service: 'sapremo-mock-gateway',
-      version: '1.0.0',
+      version: '1.0.1',
       description: 'Sapremo Cold-Chain WMS Mock Gateway',
       totalSkus: store.skus.size,
       totalBins: store.bins.size,

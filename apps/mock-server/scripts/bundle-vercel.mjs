@@ -3,8 +3,8 @@
  *
  * Express and its transitive deps are CommonJS and call `require()` at runtime.
  * Native ES modules have no `require`, so we inject one via `createRequire`.
- * Without this banner the function crashes on cold start with:
- *   "Dynamic require of "path" is not supported"
+ * Mirrors the bundle to `api/index.js`, `src/index.js`, and root `../../api/index.js`
+ * so Vercel's entrypoint detector always loads the pre-bundled file.
  */
 import { build } from 'esbuild';
 import { copyFileSync, mkdirSync } from 'node:fs';
@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 
 const pkgDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outfile = resolve(pkgDir, 'api/index.js');
+const srcCopy = resolve(pkgDir, 'src/index.js');
 const rootCopy = resolve(pkgDir, '../../api/index.js');
 
 await build({
@@ -28,8 +29,7 @@ await build({
   logLevel: 'info',
 });
 
-// Mirror the bundle to the monorepo root so Vercel works with either Root Directory setting.
+copyFileSync(outfile, srcCopy);
 mkdirSync(dirname(rootCopy), { recursive: true });
 copyFileSync(outfile, rootCopy);
-console.log(`Copied serverless bundle -> ${rootCopy}`);
-
+console.log(`Mirrored serverless bundle -> ${srcCopy} & ${rootCopy}`);

@@ -28889,11 +28889,11 @@ function createMockServer() {
   );
   app2.use(import_express.default.json({ limit: "10mb" }));
   app2.use(networkDegradationMiddleware);
-  app2.get(["/", "/api"], (_req, res) => {
+  app2.get(["/", "/api", "/index", "/api/index"], (_req, res) => {
     res.json({
       status: "UP",
       service: "sapremo-mock-gateway",
-      version: "1.0.0",
+      version: "1.0.1",
       description: "Sapremo Cold-Chain WMS Mock Gateway",
       totalSkus: store.skus.size,
       totalBins: store.bins.size,

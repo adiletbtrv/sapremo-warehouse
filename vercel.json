@@ -1,8 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm run build --workspace=@sapremo/mock-server",
   "rewrites": [
-    { "source": "/", "destination": "/api" },
-    { "source": "/(.*)", "destination": "/api" }
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
   ]
 }
