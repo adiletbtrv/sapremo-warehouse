@@ -5,7 +5,6 @@
   "description": "Offline-First Warehouse Management System (WMS) & High-Fidelity STOMP/REST Mock Gateway Monorepo",
   "author": "Adilet Batyrov <adiletbatyrov2009@gmail.com>",
   "license": "MIT",
-  "type": "module",
   "packageManager": "npm@10.8.2",
   "workspaces": [
     "apps/*"

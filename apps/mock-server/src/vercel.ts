@@ -1,5 +1,3 @@
-import { createMockServer } from './gateway.js';
-
-const { app } = createMockServer();
+import app from './index';
 
 export default app;

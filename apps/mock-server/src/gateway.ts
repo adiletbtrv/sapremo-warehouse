@@ -7,13 +7,13 @@ import {
   generateCode128Barcode,
   type SkuRecord,
   type OrderItemRecord,
-} from './data/seed.js';
+} from './data/seed';
 import {
   networkDegradationMiddleware,
   getChaosConfig,
   updateChaosConfig,
-} from './middleware/networkSimulator.js';
-import { StompBroker } from './ws/stompBroker.js';
+} from './middleware/networkSimulator';
+import { StompBroker } from './ws/stompBroker';
 
 function createJwtToken(username: string, role = 'WAREHOUSE_MANAGER', warehouseId = store.warehouseId): string {
   const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
@@ -1335,6 +1335,9 @@ export function createMockServer() {
 
   return { app, server, stompBroker };
 }
+
+
+
 
 
 
