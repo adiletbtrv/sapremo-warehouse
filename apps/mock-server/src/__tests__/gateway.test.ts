@@ -4,8 +4,8 @@ import {
   computeEan13CheckDigit,
   generateValidEan13,
   generateCode128Barcode,
-} from '../data/seed';
-import { getChaosConfig, updateChaosConfig } from '../middleware/networkSimulator';
+} from '../data/seed.js';
+import { getChaosConfig, updateChaosConfig } from '../middleware/networkSimulator.js';
 
 describe('Mock Gateway Seed & Storage Topology', () => {
   beforeEach(() => {
