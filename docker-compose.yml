@@ -1,0 +1,36 @@
+services:
+  mock-server:
+    build:
+      context: .
+      dockerfile: apps/mock-server/Dockerfile
+    container_name: sapremo-mock-gateway
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - MOCK_CHAOS_ENABLED=true
+      - MOCK_LATENCY_MIN_MS=50
+      - MOCK_LATENCY_MAX_MS=250
+      - MOCK_DROP_RATE=0
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3001/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  client:
+    build:
+      context: .
+      dockerfile: apps/client/Dockerfile
+      args:
+        VITE_API_URL: /api
+        VITE_WS_URL: /api/warehouse/ws
+    container_name: sapremo-warehouse-client
+    ports:
+      - "3000:3000"
+    depends_on:
+      mock-server:
+        condition: service_healthy
+    restart: unless-stopped
+
