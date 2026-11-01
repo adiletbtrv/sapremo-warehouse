@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/cli.ts",
     "start": "tsx src/cli.ts",
-    "build": "tsc && esbuild src/vercel.ts --bundle --platform=node --format=esm --outfile=api/index.js",
+    "build": "tsc && node scripts/bundle-vercel.mjs",
     "type-check": "tsc --noEmit",
     "test": "vitest run"
   },
