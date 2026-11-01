@@ -1,0 +1,207 @@
+.receipts-page {
+  display: flex;
+  width: 100%;
+}
+
+.receipts-page__hero,
+.receipts-page__table-card {
+  border-color: #e8eaf0;
+  box-shadow: 0 2px 8px rgba(31, 35, 41, 0.04);
+}
+
+.receipts-page__hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.receipts-page__title {
+  margin: 0 0 4px !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+}
+
+.receipts-page__subtitle {
+  display: block;
+  font-size: 14px;
+}
+
+.receipts-page__summary {
+  margin-top: 24px;
+}
+
+.receipts-summary-card {
+  display: flex;
+  min-height: 94px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 12px 16px;
+  border: 1px solid;
+  border-radius: 8px;
+}
+
+.receipts-summary-card strong {
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.receipts-summary-card__icon {
+  margin-bottom: 4px;
+  font-size: 18px;
+}
+
+.receipts-summary-card--blue {
+  border-color: #bae7ff;
+  background: #f0f9ff;
+}
+
+.receipts-summary-card--blue .receipts-summary-card__icon {
+  color: #1890ff;
+}
+
+.receipts-summary-card--green {
+  border-color: #b7eb8f;
+  background: #f6ffed;
+}
+
+.receipts-summary-card--green .receipts-summary-card__icon {
+  color: #52c41a;
+}
+
+.receipts-summary-card--gold {
+  border-color: #ffe58f;
+  background: #fffbe6;
+}
+
+.receipts-summary-card--gold strong {
+  color: #ad6800;
+}
+
+.receipts-page__table-card .ant-table-thead > tr > th {
+  color: #8c8c8c;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background: #fff;
+}
+
+@media (max-width: 768px) {
+  .receipts-page__hero-content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .receipts-page__hero-content .ant-space {
+    width: 100%;
+  }
+
+  .receipts-page__hero-content .ant-btn {
+    flex: 1;
+  }
+}
+
+body.theme-dark .receipts-page__hero,
+body.theme-dark .receipts-page__table-card {
+  background: #0f1720;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.theme-dark .receipts-page__title,
+body.theme-dark .receipts-page__subtitle,
+body.theme-dark .receipts-page__hero .ant-btn,
+body.theme-dark .receipts-page__hero .ant-btn-primary,
+body.theme-dark .receipts-page__hero .ant-btn-default,
+body.theme-dark .receipts-page__hero .ant-btn-text {
+  color: #e8f2ff !important;
+}
+
+body.theme-dark .receipts-page__hero .ant-btn-primary {
+  background: #0b1220 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #e8f2ff !important;
+}
+
+body.theme-dark .receipts-summary-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.theme-dark .receipts-summary-card strong,
+body.theme-dark .receipts-summary-card .receipts-summary-card__icon,
+body.theme-dark .receipts-summary-card .ant-typography,
+body.theme-dark .receipts-summary-card .ant-typography span,
+body.theme-dark .receipts-page__subtitle {
+  color: #e8f2ff !important;
+}
+
+body.theme-dark .receipts-summary-card--blue {
+  border-color: rgba(24, 144, 255, 0.25);
+}
+
+body.theme-dark .receipts-summary-card--green {
+  border-color: rgba(82, 196, 26, 0.25);
+}
+
+body.theme-dark .receipts-summary-card--gold {
+  border-color: rgba(250, 173, 20, 0.25);
+}
+
+body.theme-dark .receipts-page .ant-table-thead > tr > th {
+  background: #0b1220 !important;
+  color: #d7e7ef !important;
+}
+
+body.theme-dark .receipts-page .ant-table-tbody > tr > td {
+  background: #0f1720 !important;
+  color: #d7e7ef !important;
+}
+
+body.theme-dark .receipts-page .ant-form-item-label > label,
+body.theme-dark .receipts-page .ant-form-item-control input,
+body.theme-dark .receipts-page .ant-form-item-control textarea,
+body.theme-dark .receipts-page .ant-form-item-control .ant-input,
+body.theme-dark .receipts-page .ant-form-item-control .ant-input-number,
+body.theme-dark .receipts-page .ant-form-item-control .ant-input-affix-wrapper,
+body.theme-dark .receipts-page .ant-form-item-control .ant-select-selector,
+body.theme-dark .receipts-page .ant-form-item-control .ant-picker-input > input {
+  background: #0f1720 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #e8f2ff !important;
+}
+
+body.theme-dark .receipts-page .ant-input::placeholder,
+body.theme-dark .receipts-page .ant-input-number input::placeholder,
+body.theme-dark .receipts-page .ant-select-selection-placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+body.theme-dark .receipts-page .ant-form-item-label > label {
+  color: #d7e7ef !important;
+}
+
+body.theme-dark .receipts-page .ant-btn,
+body.theme-dark .receipts-page .ant-btn-primary,
+body.theme-dark .receipts-page .ant-btn-default,
+body.theme-dark .receipts-page .ant-btn-text {
+  background: #0b1220 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #e8f2ff !important;
+}
+
+body.theme-dark .receipts-page .ant-btn:hover,
+body.theme-dark .receipts-page .ant-btn:focus,
+body.theme-dark .receipts-page .ant-btn-primary:hover,
+body.theme-dark .receipts-page .ant-btn-primary:focus {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+}
+
+body.theme-dark .receipts-page .ant-tag {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #d7e7ef !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}

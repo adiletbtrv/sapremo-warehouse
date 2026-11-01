@@ -1,0 +1,606 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*Design Tokens */
+:root {
+  /* Brand */
+  --color-primary: #096dd9;
+  --color-primary-bg: rgba(0, 80, 179, 0.1);
+  --color-brand: #0057c2;
+
+  /* Neutral */
+  --color-bg: #fafafa;
+  --color-bg-dashboard: #faf9ff;
+  --color-surface: #ffffff;
+  --color-border: #f0f0f0;
+  --color-border-strong: #bfbfbf;
+  --color-border-medium: #d9d9d9;
+
+  /* Text */
+  --color-text-primary: #181b23;
+  --color-text-secondary: #414755;
+  --color-text-body: #595959;
+  --color-text-dark: #1f1f1f;
+
+  /* Status */
+  --color-success: #52c41a;
+  --color-danger: #cf1322;
+  --color-warning: #7d5400;
+
+  /* Typography */
+  --font-base: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Unified background variable for dashboard and tables */
+  --bg-main: var(--color-bg);
+}
+
+body {
+  font-family: var(--font-base);
+  background-color: var(--bg-main);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dark theme override for unified background */
+body.theme-dark {
+  --bg-main: #0f1720;
+}
+
+/* Scrollbar for dark theme */
+body.theme-dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body.theme-dark ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body.theme-dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+body.theme-dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+body.theme-dark .page-header,
+body.theme-dark .page-toolbar {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.theme-dark .page-header h1,
+body.theme-dark .page-header h2,
+body.theme-dark .page-header h3,
+body.theme-dark .page-header h4,
+body.theme-dark .page-header h5,
+body.theme-dark .page-header h6,
+body.theme-dark .page-header span,
+body.theme-dark .page-header p {
+  color: #e8f2ff !important;
+}
+
+body.theme-dark {
+  --color-text-primary: #e8f2ff;
+  --color-text-secondary: #a3b8cc;
+  --color-text-body: #d7e7ef;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Online/Offline */
+.offline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #fff1f0;
+  color: #cf1322;
+  border: 1px solid #ffa39e;
+}
+
+.online-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #f6ffed;
+  color: #389e0d;
+  border: 1px solid #b7eb8f;
+}
+
+body.theme-dark .online-badge {
+  background: #062015;
+  border-color: #17321f;
+  color: #6ee07a;
+}
+
+body.theme-dark .offline-badge {
+  background: rgba(255, 77, 79, 0.15);
+  border-color: rgba(255, 77, 79, 0.3);
+  color: #ff4d4f;
+}
+
+/* Dashboard KPI Cards */
+.dashboard-stat-card {
+  background: #ffffff;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 102px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dashboard-stat-card .ant-statistic-title {
+  color: #414755;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-base);
+  line-height: 22px;
+}
+
+.dashboard-stat-card .ant-statistic-content-value {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 40px;
+  font-family: var(--font-base);
+}
+
+.dashboard-stat-card .ant-statistic-content-suffix {
+  color: #414755;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 8px;
+  font-family: var(--font-base);
+}
+
+/* ── Responsive layout utilities ── */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.page-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.filter-input {
+  width: min(320px, 100%);
+}
+
+.filter-select {
+  width: min(200px, 100%);
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f2f5;
+  padding: 16px;
+}
+
+body.theme-dark .auth-page {
+  background: var(--bg-main);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-section-card {
+  background: #ffffff;
+  border-radius: 8px;
+  margin-top: 32px;
+  width: 100%;
+}
+
+.dashboard-section-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 2px solid #f5f5f5;
+}
+
+.dashboard-section-title {
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 500;
+  color: #000000;
+  line-height: 1.3;
+}
+
+.dashboard-section-body {
+  padding: 0 8px 16px;
+}
+
+.form-field-lg {
+  width: 100%;
+  min-width: 160px;
+  max-width: 400px;
+}
+
+.form-field-md {
+  width: 100%;
+  min-width: 140px;
+  max-width: 260px;
+}
+
+.form-field-sm {
+  width: 100%;
+  min-width: 90px;
+  max-width: 130px;
+}
+
+.responsive-tabs .ant-tabs-nav {
+  margin-bottom: 8px;
+}
+
+.header-status-label {
+  display: inline;
+}
+
+@media (min-width: 768px) {
+  .dashboard-section-header {
+    padding: 20px 32px;
+  }
+
+  .dashboard-section-body {
+    padding: 0 16px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsive-tabs .ant-tabs-nav-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .responsive-tabs .ant-tabs-tab {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .ant-modal {
+    max-width: calc(100vw - 16px) !important;
+    top: 8px !important;
+    padding-bottom: 0;
+    margin: 0 auto !important;
+  }
+
+  .ant-modal .ant-modal-content {
+    padding: 16px;
+  }
+
+  .ant-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .ant-pagination {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard-stat-card {
+    height: auto;
+    min-height: 90px;
+  }
+
+  .dashboard-stat-card .ant-statistic-content-value {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .header-status-label {
+    display: none;
+  }
+
+  .payment-form-card {
+    padding: 16px !important;
+  }
+
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .visible-mobile {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .visible-mobile {
+    display: block !important;
+  }
+}
+
+body.theme-dark .ant-modal-content,
+body.theme-dark .ant-modal-header,
+body.theme-dark .ant-modal-title {
+  background: #141e2b !important;
+  color: #e8f2ff !important;
+}
+
+body.theme-dark .ant-modal-close {
+  color: #e8f2ff !important;
+}
+
+/* Sidebar dark theme */
+body.theme-dark .ant-layout-sider {
+  background: #141e2b !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body.theme-dark .ant-menu {
+  background: transparent !important;
+}
+
+body.theme-dark .ant-layout-header {
+  background: var(--bg-main) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Dropdown / Select modals dark theme */
+body.theme-dark .ant-select-dropdown {
+  background: #141e2b !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.theme-dark .ant-select-item {
+  color: #d7e7ef !important;
+}
+
+body.theme-dark .ant-select-item-option-selected {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.theme-dark .ant-select-item-option-active {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Fix pagination indicator background */
+body.theme-dark .ant-pagination-item-active {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body.theme-dark .ant-pagination-item-active a {
+  color: #ffffff !important;
+}
+
+body.theme-dark .ant-layout {
+  background: var(--bg-main) !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+.nested-table .ant-table {
+  background: transparent !important;
+}
+
+.nested-table .ant-table-thead > tr > th {
+  background: var(--bg-hover) !important;
+  border-bottom: none !important;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.nested-table .ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.nested-table .ant-table-tbody > tr:last-child > td {
+  border-bottom: none !important;
+}
+
+.ant-table-expanded-row > .ant-table-cell {
+  padding: 16px 24px 16px 48px !important;
+  background: var(--bg-secondary) !important;
+  box-shadow: inset 3px 0 0 var(--primary-color);
+}
+
+.nested-table .ant-table {
+  background: transparent !important;
+}
+
+.nested-table .ant-table-thead > tr > th {
+  background: var(--bg-hover) !important;
+  border-bottom: none !important;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.nested-table .ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.nested-table .ant-table-tbody > tr:last-child > td {
+  border-bottom: none !important;
+}
+
+.ant-table-expanded-row > .ant-table-cell {
+  padding: 16px 24px 16px 48px !important;
+  background: var(--bg-secondary) !important;
+  box-shadow: inset 3px 0 0 var(--primary-color);
+}
+
+/* Fix dark theme modal and spin loader */
+body.theme-dark .ant-modal-confirm-content,
+body.theme-dark .ant-modal-confirm-title {
+  color: var(--color-text-primary) !important;
+}
+body.theme-dark .ant-spin-dot-item {
+  background-color: #ffffff !important;
+}
+
+/* ============================
+   Toast / Message centering
+   Messages are rendered into document.body via getContainer.
+   We span the container across the workspace (right of sidebar)
+   and use text-align: center for natural inline centering.
+   ============================ */
+.ant-message {
+  position: fixed !important;
+  top: 24px !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+  text-align: center !important;
+  z-index: 2000 !important;
+  transform: none !important;
+}
+
+.ant-message .ant-message-notice {
+  text-align: center !important;
+  padding: 8px 0 !important;
+}
+
+.ant-message .ant-message-notice-content {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px 18px !important;
+  line-height: normal !important;
+  pointer-events: auto !important;
+  box-shadow:
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12) !important;
+  border-radius: 8px !important;
+}
+
+.ant-message-custom-content {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  line-height: 1.4 !important;
+}
+
+.ant-message-custom-content .anticon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+}
+
+.ant-message-custom-content .anticon svg {
+  display: block !important;
+  overflow: visible !important;
+  width: 1em !important;
+  height: 1em !important;
+}
+
+/* ============================
+   Notification positioning
+   ============================ */
+.ant-notification {
+  pointer-events: none !important;
+  z-index: 2010 !important;
+}
+
+.ant-notification .ant-notification-notice {
+  pointer-events: auto !important;
+}
+
+.ant-notification-notice-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+}
+
+.ant-notification-notice-icon svg {
+  display: block !important;
+  overflow: visible !important;
+  width: 1em !important;
+  height: 1em !important;
+}
+
+/* Mobile: full-width messages */
+@media (max-width: 768px) {
+  .ant-message {
+    left: 0 !important;
+    right: 0 !important;
+  }
+}
+
+/* ============================
+   Scanner row highlight feedback
+   ============================ */
+.scan-highlight-row td {
+  background-color: rgba(82, 196, 26, 0.15) !important;
+  transition: background-color 0.35s ease !important;
+}

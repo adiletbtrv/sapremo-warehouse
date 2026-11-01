@@ -1,0 +1,12 @@
+# Normalize line endings to LF in the repo for all teammates.
+* text=auto eol=lf
+
+# Windows-only scripts can keep CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files — never touch endings.
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary

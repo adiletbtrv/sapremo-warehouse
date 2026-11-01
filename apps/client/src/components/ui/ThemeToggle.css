@@ -1,0 +1,83 @@
+.theme-toggle {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.theme-toggle-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-toggle-switch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cbd5e1;
+  border-radius: 24px;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  border: none;
+}
+
+.theme-toggle-input:checked + .theme-toggle-switch {
+  background-color: #1e293b;
+}
+
+.theme-toggle-switch::before {
+  position: absolute;
+  content: '';
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s;
+  z-index: 2;
+}
+
+.theme-toggle-input:checked + .theme-toggle-switch::before {
+  transform: translateX(28px);
+  background-color: #1677ff;
+}
+
+.theme-toggle-moon,
+.theme-toggle-sun {
+  width: 14px;
+  height: 14px;
+  z-index: 1;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle-sun {
+  color: #fbbf24;
+}
+
+.theme-toggle-moon {
+  color: #94a3b8;
+}
+
+.theme-toggle-input:checked + .theme-toggle-switch .theme-toggle-sun {
+  opacity: 0.3;
+}
+.theme-toggle-input:checked + .theme-toggle-switch .theme-toggle-moon {
+  opacity: 1;
+  color: #f8fafc;
+}
+.theme-toggle-input:not(:checked) + .theme-toggle-switch .theme-toggle-sun {
+  opacity: 1;
+}
+.theme-toggle-input:not(:checked) + .theme-toggle-switch .theme-toggle-moon {
+  opacity: 0.3;
+}

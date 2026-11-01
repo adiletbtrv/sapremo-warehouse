@@ -1,0 +1,404 @@
+.dashboard-page {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 12px 16px;
+}
+
+.dashboard-page__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dashboard-page__title {
+  margin: 0 0 4px !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+}
+
+.dashboard-page__subtitle {
+  font-size: 14px;
+}
+
+.dashboard-page__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: 1px solid #b7eb8f;
+  border-radius: 999px;
+  background: #f6ffed;
+  color: #389e0d;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.dashboard-page__status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #52c41a;
+  box-shadow: 0 0 0 3px rgba(82, 196, 26, 0.14);
+}
+
+.dashboard-page__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 48px;
+  color: #595959;
+  font-size: 14px;
+}
+
+/* Theme toggle button (header) */
+.theme-toggle-input {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  margin-right: 12px;
+  border-radius: 8px;
+  background: #f0f2f5;
+  color: #222;
+  font-weight: 600;
+  border: 1px solid #e8eaf0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.theme-toggle-btn__label {
+  font-size: 13px;
+}
+
+.dashboard-page__error {
+  margin-top: 24px;
+}
+
+.dashboard-page .dashboard-stat-card {
+  min-height: 132px;
+  border-color: #e8eaf0;
+  box-shadow: 0 2px 8px rgba(31, 35, 41, 0.04);
+  transition:
+    box-shadow 160ms ease,
+    transform 160ms ease;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.dashboard-page .dashboard-stat-card:hover {
+  box-shadow: 0 8px 20px rgba(31, 35, 41, 0.08);
+  transform: translateY(-2px);
+  will-change: transform, box-shadow;
+}
+
+.dashboard-page .dashboard-section-card {
+  margin-top: 24px;
+  overflow: hidden;
+  border: 1px solid #e8eaf0;
+  box-shadow: 0 2px 8px rgba(31, 35, 41, 0.03);
+  border-radius: 12px;
+}
+
+.dashboard-page .dashboard-section-header {
+  min-height: 64px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 18px 22px;
+}
+
+.dashboard-page .dashboard-section-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.dashboard-page .dashboard-section-body {
+  padding: 0;
+  padding: 18px 22px;
+}
+
+.dashboard-page .ant-table-thead > tr > th {
+  color: #8c8c8c;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  background: #fff;
+}
+
+.dashboard-page .ant-table-tbody > tr > td {
+  padding: 14px 16px;
+}
+
+/* Recent activity table styles (design-matching) */
+.dashboard-activity-table {
+  padding: 20px 22px 22px 22px;
+  background: transparent;
+  border-radius: 10px;
+}
+
+.dashboard-activity-table__table .ant-table-container {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.dashboard-activity-table__table .ant-table-thead > tr > th {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 18px 20px;
+  color: #222;
+  font-weight: 600;
+}
+
+.dashboard-activity-table__table .ant-table-tbody > tr > td {
+  padding: 18px 20px;
+  background: #fff;
+}
+
+.dashboard-activity-table__table a {
+  color: #1890ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.dashboard-activity-table .ant-tag.ant-tag-green {
+  background: #f6ffed;
+  color: #389e0d;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.dashboard-activity-table .ant-tag.ant-tag-blue {
+  background: #e6f7ff;
+  color: #096dd9;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+/* Dark theme rules applied when body has class `theme-dark` */
+body.theme-dark .dashboard-page {
+  background-color: var(--bg-main);
+  color: #cbd5e1;
+}
+
+body.theme-dark .dashboard-page .dashboard-section-card,
+body.theme-dark .dashboard-page .dashboard-stat-card {
+  background: var(--bg-main);
+  border-color: #23272b;
+  box-shadow: 0 6px 18px rgba(2, 8, 23, 0.6);
+}
+
+body.theme-dark .dashboard-page .dashboard-section-header {
+  border-bottom-color: #202428;
+}
+
+body.theme-dark .dashboard-page .dashboard-page__title {
+  color: #9fb3d6 !important;
+}
+
+body.theme-dark .dashboard-page .dashboard-page__subtitle {
+  color: #98a0aa;
+}
+
+/* Brighten KPI/stat text for dark theme */
+body.theme-dark .dashboard-page .dashboard-stat-card .ant-statistic-title {
+  color: #9fbfdc; /* slightly brighter */
+}
+
+body.theme-dark .dashboard-page .dashboard-stat-card .ant-statistic-content-value {
+  color: #e6f4ff; /* bright numeric value */
+  font-weight: 700;
+}
+
+body.theme-dark .dashboard-page .dashboard-stat-card .ant-statistic-content-suffix {
+  color: #bcd2e6;
+}
+
+body.theme-dark .dashboard-page .dashboard-section-title {
+  color: #cfe8ff;
+}
+
+body.theme-dark .dashboard-page .dashboard-page__status {
+  background: #062015;
+  border-color: #17321f;
+  color: #6ee07a;
+}
+
+body.theme-dark .dashboard-page .theme-toggle-btn {
+  background: #0b1220;
+  color: #cfe8ff;
+  border-color: #1f2933;
+}
+
+body.theme-dark .dashboard-page .page-toolbar .filter-input.filter-input--dashboard .ant-input,
+body.theme-dark
+  .dashboard-page
+  .page-toolbar
+  .filter-select.filter-select--dashboard
+  .ant-select-selector {
+  background: #0e1316;
+  border-color: #25282b;
+  color: #cdd6df;
+}
+
+body.theme-dark .dashboard-page .dashboard-activity-table__table .ant-table-thead > tr > th {
+  /* table header: use unified background */
+  background: var(--bg-main);
+  color: #cfe8ff;
+  border-bottom-color: rgba(255, 255, 255, 0.03);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+body.theme-dark .dashboard-page .dashboard-activity-table__table .ant-table-tbody > tr > td {
+  background: var(--bg-main);
+  color: #d7e7ef;
+  border-bottom-color: rgba(255, 255, 255, 0.03);
+}
+
+body.theme-dark .dashboard-page .dashboard-activity-table__table a {
+  color: #66b0ff;
+}
+
+body.theme-dark .dashboard-page .dashboard-activity-table .ant-tag.ant-tag-green {
+  background: #0b2a10;
+  color: #7fe38a;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+body.theme-dark .dashboard-page .dashboard-activity-table .ant-tag.ant-tag-blue {
+  background: #06223a;
+  color: #8fc6ff;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Make Top Drivers table text colors match Low Stock (ending goods) */
+body.theme-dark .drivers-table .ant-table-tbody > tr > td {
+  color: #d7e7ef; /* bright row text */
+}
+
+body.theme-dark .drivers-table .ant-table-tbody > tr > td a,
+body.theme-dark .drivers-table .ant-table-tbody > tr > td .ant-typography a {
+  color: #66b0ff; /* link color consistent */
+}
+
+body.theme-dark .drivers-table .ant-table-tbody > tr > td .ant-tag {
+  background: #0b2a10;
+  color: #7fe38a;
+}
+
+/* barcode badge style inside drivers table */
+body.theme-dark .drivers-table .ant-table-tbody .ant-badge {
+  background: #071014;
+}
+
+/* Stronger overrides to ensure driver rows are readable */
+body.theme-dark .drivers-table .ant-table-tbody > tr > td,
+body.theme-dark .drivers-table .ant-table-tbody > tr > td span,
+body.theme-dark .drivers-table .ant-table-tbody > tr > td .ant-typography {
+  color: #d7e7ef !important;
+}
+
+/* If header cell appears highlighted due to focus/selection, normalize its background */
+body.theme-dark .drivers-table .ant-table-thead > tr > th {
+  background: var(--bg-main) !important;
+  color: #cfe8ff !important;
+}
+
+/* Remove default focus outline that can create dark selection look */
+body.theme-dark .drivers-table .ant-table-thead > tr > th:focus,
+body.theme-dark .drivers-table .ant-table-thead > tr > th:active {
+  outline: none !important;
+}
+
+/* Vehicle badge styling */
+.vehicle-badge {
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 4px 6px;
+  color: #1f1f1f;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+body.theme-dark .vehicle-badge {
+  background: #0b1220; /* dark background for badge in dark theme */
+  color: #d7e7ef;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+}
+
+/* subtle rounded header cells */
+body.theme-dark
+  .dashboard-page
+  .dashboard-activity-table__table
+  .ant-table-thead
+  > tr
+  > th:first-child {
+  border-top-left-radius: 8px;
+}
+body.theme-dark
+  .dashboard-page
+  .dashboard-activity-table__table
+  .ant-table-thead
+  > tr
+  > th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* Global layout overrides for dark theme */
+body.theme-dark .ant-layout {
+  background: var(--bg-main) !important;
+}
+
+body.theme-dark .ant-layout-sider {
+  background: var(--bg-main) !important;
+  color: #cbd5e1;
+}
+
+body.theme-dark .ant-layout-header {
+  background: var(--bg-main) !important;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.6) !important;
+}
+
+body.theme-dark .ant-layout-content {
+  background: var(--bg-main) !important;
+}
+
+body.theme-dark .ant-menu {
+  background: transparent !important;
+  color: #cbd5e1 !important;
+}
+
+body.theme-dark .ant-menu-item-selected {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+@media (max-width: 768px) {
+  .dashboard-page__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-page__status {
+    align-self: flex-start;
+  }
+
+  .dashboard-page__title {
+    font-size: 24px !important;
+  }
+}
