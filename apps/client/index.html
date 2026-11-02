@@ -7,7 +7,7 @@
       content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval'; 
                style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:;
-               connect-src 'self' http://localhost:3001 ws://localhost:3001 http://127.0.0.1:3001 ws://127.0.0.1:3001 http://ipc.localhost tauri: data: blob: ipc: https://cdnjs.cloudflare.com;
+               connect-src 'self' http://localhost:3001 ws://localhost:3001 http://127.0.0.1:3001 ws://127.0.0.1:3001 https://*.vercel.app wss://*.vercel.app https: wss: http://ipc.localhost tauri: data: blob: ipc: https://cdnjs.cloudflare.com;
                img-src 'self' data: blob:;
                object-src 'none';
                base-uri 'self';"
